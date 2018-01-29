@@ -1,0 +1,38 @@
+{
+  "name": "mainaero/yii2-gtm-widget",
+  "type": "yii2-extension",
+  "description": "Google Tag Manager Widget for the Yii2 Framework",
+  "keywords": ["yii2", "gtm", "google"],
+  "homepage": "https://github.com/MainAero/yii2-gtm-widget",
+  "repositories": [{
+    "type": "composer",
+    "url": "https://asset-packagist.org"
+  }],
+  "license": "MIT",
+  "authors": [{
+    "name": "MainAero",
+    "email": "mainaero@gmx.de"
+  }],
+  "minimum-stability": "stable",
+  "require": {
+    "yiisoft/yii2": "^2.0.13"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "^6.5",
+    "phpunit/php-code-coverage": "^5.3",
+    "phpmd/phpmd": "^2.6"
+  },
+  "autoload": {
+    "psr-4": {
+      "mainaero\\yii\\widget\\": ["src/"]
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "mainaero\\yii\\widget\\": ["tests/"]
+    }
+  },
+  "scripts": {
+    "test": "vendor/bin/phpunit -c tests/phpunit.xml tests/GTMTest.php"
+  }
+}
