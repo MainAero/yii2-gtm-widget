@@ -6,4 +6,5 @@ install:
   - composer install
 script:
   - composer test
+  - cd tests && ../vendor/bin/test-reporter
 ...

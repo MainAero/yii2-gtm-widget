@@ -1,4 +1,6 @@
 # Yii2 GTM Widget
+[![Build Status](https://travis-ci.org/MainAero/yii2-gtm-widget.svg?branch=master)](https://travis-ci.org/MainAero/yii2-gtm-widget) [![Maintainability](https://api.codeclimate.com/v1/badges/ced413cc7754de2d7c12/maintainability)](https://codeclimate.com/github/MainAero/yii2-gtm-widget/maintainability) [![Test Coverage](https://api.codeclimate.com/v1/badges/ced413cc7754de2d7c12/test_coverage)](https://codeclimate.com/github/MainAero/yii2-gtm-widget/test_coverage)
+
 A Yii2 extensions which provides a widget to render Google Tag Manager `<script>` and `<noscript>` snippets based on Yii2 params configuration.
 
 ## Configuration
