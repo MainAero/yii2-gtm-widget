@@ -7,12 +7,14 @@ use Yii;
 
 class DataLayerPush extends Component
 {
-    public function add(String $key, String $value) : void
+    public function add(array $event) : void
     {
-        $session = Yii::$app->getSession(GTM::SESSION_KEY);
+        $session = Yii::$app->getSession();
+        $values = $session->get(GTM::SESSION_KEY) ?? [];
+        $values[] = $event;
         $session->set(
           GTM::SESSION_KEY,
-          array_merge($session->get(GTM::SESSION_KEY) ?? [], [[$key => $value]])
+          $values
         );
     }
 }

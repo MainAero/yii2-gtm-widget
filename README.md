@@ -73,7 +73,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 ### Use to trigger `dataLayer.push`
 In your controller add seomthing with:
 ```php
-Yii::$app->gtmDataLayerPush->add('key', 'value');
+Yii::$app->gtmDataLayerPush->add(['event' => 'myEvent', 'eventCategory' => 'myCategory']);
 ```
 
 Somewhere in your view or layout file output it with:

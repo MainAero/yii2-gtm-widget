@@ -12,7 +12,18 @@ class DataLayerPushTest extends TestCase
         $expected = [['event' => 'value']];
         $session = Yii::$app->getSession();
 
-        (new DataLayerPush())->add('event', 'value');
+        (new DataLayerPush())->add(['event' => 'value']);
+
+        $actual = $session->get(GTM::SESSION_KEY);
+        $this->assertEquals($actual, $expected);
+    }
+
+    public function testMultipleValues()
+    {
+        $expected = [['event' => 'value', 'eventCategory' => 'category']];
+        $session = Yii::$app->getSession();
+
+        (new DataLayerPush())->add(['event' => 'value', 'eventCategory' => 'category']);
 
         $actual = $session->get(GTM::SESSION_KEY);
         $this->assertEquals($actual, $expected);
@@ -24,9 +35,14 @@ class DataLayerPushTest extends TestCase
         $session = Yii::$app->getSession();
         $session->set(GTM::SESSION_KEY, [['old' => 'oldValue']]);
 
-        (new DataLayerPush())->add('event', 'value');
+        (new DataLayerPush())->add(['event' => 'value']);
 
         $actual = $session->get(GTM::SESSION_KEY);
         $this->assertEquals($actual, $expected);
+    }
+
+    protected function tearDown()
+    {
+        Yii::$app->getSession()->session = [];
     }
 }
