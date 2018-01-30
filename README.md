@@ -1,7 +1,13 @@
 # Yii2 GTM Widget
 [![Build Status](https://travis-ci.org/MainAero/yii2-gtm-widget.svg?branch=master)](https://travis-ci.org/MainAero/yii2-gtm-widget) [![Maintainability](https://api.codeclimate.com/v1/badges/ced413cc7754de2d7c12/maintainability)](https://codeclimate.com/github/MainAero/yii2-gtm-widget/maintainability) [![Test Coverage](https://api.codeclimate.com/v1/badges/ced413cc7754de2d7c12/test_coverage)](https://codeclimate.com/github/MainAero/yii2-gtm-widget/test_coverage)
 
-A Yii2 extensions which provides a widget to render Google Tag Manager `<script>` and `<noscript>` snippets based on Yii2 params configuration.
+A Yii2 extensions which provides a widget to render Google Tag Manager `<script>` and `<noscript>` snippets based on Yii2 params configuration. Further you can register it as component and use it to trigger `dataLayer.push` requests.
+
+## Install
+Using composer:
+```bash
+composer require "mainaero/yii2-gtm-widget"
+```
 
 ## Configuration
 Add in your `params-local.php` file:
@@ -15,12 +21,25 @@ E.g.:
 'gtm_env' => '&gtm_auth=<TOKEN>w&gtm_preview=<ENV_ID>&gtm_cookies_win=x'
 ```
 If you don't set the `gtm_id` param this widget will return an empty string.
+
+### As Component
+If you want to use it as component add following code to your `main.php` config:
+```php
+'components' => [
+...
+  'gtmDataLayerPush' => [
+    'class' => 'mainaero\yii\gtm\component\DataLayerPush'
+  ],
+...
+]
+```
+
 ## Usage
 In your view file:
 
 ```php
 <?php
-use mainaero\yii\widget\GTM;
+use mainaero\yii\gtm\widget\GTM;
 ...
 ```
 
@@ -50,3 +69,15 @@ which renders:
 height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <!-- End Google Tag Manager (noscript) -->
 ```
+
+### Use to trigger `dataLayer.push`
+In your controller add seomthing with:
+```php
+Yii::$app->gtmDataLayerPush->add('key', 'value');
+```
+
+Somewhere in your view or layout file output it with:
+```php
+<?= GTM::widget(['type' => 'dataLayerPush']) ?>
+```
+You can leave this snipped in your layout file as it will only render something if you have added something before.

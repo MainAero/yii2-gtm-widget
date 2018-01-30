@@ -23,15 +23,15 @@
   },
   "autoload": {
     "psr-4": {
-      "mainaero\\yii\\widget\\": ["src/"]
+      "mainaero\\yii\\gtm\\": ["src/"]
     }
   },
   "autoload-dev": {
     "psr-4": {
-      "mainaero\\yii\\widget\\": ["tests/"]
+      "mainaero\\yii\\gtm\\": ["tests/"]
     }
   },
   "scripts": {
-    "test": "vendor/bin/phpunit -c tests/phpunit.xml tests/GTMTest.php"
+    "test": "vendor/bin/phpunit -c tests/phpunit.xml"
   }
 }

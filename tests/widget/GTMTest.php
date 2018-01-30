@@ -1,9 +1,9 @@
 <?php
-namespace mainaero\yii\widget;
+namespace mainaero\yii\gtm\widget;
 
 use PHPUnit\Framework\TestCase;
 use yii\base\View;
-use mainaero\yii\widget\stubs\ViewStub;
+use mainaero\yii\gtm\stubs\ViewStub;
 use Yii;
 use yii\log\Logger;
 
@@ -20,7 +20,7 @@ final class GTMTest extends TestCase
       ];
         $this->assertEquals(
           $this->renderer->renderPhpFile(
-            'src/views/noscript.php',
+            'src/widget/views/noscript.php',
             [
               'gtm_env' => '&gtm_auth=<TOKEN>w&gtm_preview=<ENV_ID>&gtm_cookies_win=x',
               'gtm_id' => '1A2B3CD'
@@ -44,7 +44,7 @@ final class GTMTest extends TestCase
         ];
         $this->assertEquals(
             $this->renderer->renderPhpFile(
-              'src/views/script.php',
+              'src/widget/views/script.php',
               [
                 'gtm_env' => '&gtm_auth=<TOKEN>w&gtm_preview=<ENV_ID>&gtm_cookies_win=x',
                 'gtm_id' => '1A2B3CD'
@@ -61,13 +61,29 @@ final class GTMTest extends TestCase
       ];
         $this->assertEquals(
           $this->renderer->renderPhpFile(
-            'src/views/script.php',
+            'src/widget/views/script.php',
             [
               'gtm_env' => '',
               'gtm_id' => '1A2B3CD'
             ]
           ),
           $this->widget->widget()
+      );
+    }
+
+    public function testShouldReturnRenderedDataPushSnippet() {
+      $dataLayerPushItems = [['event' => 'eventValue']];
+      $session = Yii::$app->getSession();
+      $session->set('gtm-data-layer-push', $dataLayerPushItems);
+
+      $this->assertEquals(
+        $this->renderer->renderPhpFile(
+          'src/widget/views/dataLayerPush.php',
+          [
+            'dataLayerPushItems' => $dataLayerPushItems
+          ]
+        ),
+        GTM::widget(['type' => 'dataLayerPush'])
       );
     }
 

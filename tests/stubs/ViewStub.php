@@ -1,8 +1,8 @@
 <?php
-namespace mainaero\yii\widget\stubs;
+namespace mainaero\yii\gtm\stubs;
+
 use yii\base\View;
 
-
-class ViewStub extends View {
-
+class ViewStub extends View
+{
 }

@@ -8,4 +8,4 @@ $config = [
     'id' => 'test',
     'basePath' => dirname(__DIR__),
 ];
-(new yii\web\Application($config));
+(new mainaero\yii\gtm\stubs\ApplicationStub($config));

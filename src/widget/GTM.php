@@ -1,5 +1,5 @@
 <?php
-namespace mainaero\yii\widget;
+namespace mainaero\yii\gtm\widget;
 
 use yii\base\Widget;
 use Yii;
@@ -11,24 +11,43 @@ class GTM extends Widget
 
     const TYPE_SCRIPT = 'script';
     const TYPE_NOSCRIPT = 'noscript';
+    const TYPE_PUSH = 'dataLayerPush';
+
+    const SESSION_KEY = 'gtm-data-layer-push';
 
     public $type = '';
 
     public function init()
     {
         parent::init();
-        if ($this->type != self::TYPE_SCRIPT && $this->type != self::TYPE_NOSCRIPT) {
+        if ($this->type != self::TYPE_SCRIPT
+            && $this->type != self::TYPE_NOSCRIPT
+            && $this->type != self::TYPE_PUSH) {
             $this->type = self::TYPE_SCRIPT;
         }
     }
 
     public function run()
     {
+        if ($this->type == self::TYPE_PUSH)
+          return $this->runPush();
+
         $params = $this->getParams();
-        if ($this->paramMissing($params)) {
+        if ($this->paramMissing($params))
             return '';
-        }
+
         return $this->render($this->type, $params);
+    }
+
+    private function runPush() : String {
+      $session = Yii::$app->getSession();
+      $dataLayerPushItems = $session->get(self::SESSION_KEY) ?? [];
+
+      if (empty($dataLayerPushItems))
+        return '';
+
+      $session->remove(self::SESSION_KEY);
+      return $this->render($this->type, ['dataLayerPushItems' => $dataLayerPushItems]);
     }
 
     private function paramMissing(array $params) : bool
