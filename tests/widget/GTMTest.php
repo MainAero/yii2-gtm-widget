@@ -71,12 +71,13 @@ final class GTMTest extends TestCase
       );
     }
 
-    public function testShouldReturnRenderedDataPushSnippet() {
-      $dataLayerPushItems = [['event' => 'eventValue']];
-      $session = Yii::$app->getSession();
-      $session->set('gtm-data-layer-push', $dataLayerPushItems);
+    public function testShouldReturnRenderedDataPushSnippet()
+    {
+        $dataLayerPushItems = [['event' => 'eventValue']];
+        $session = Yii::$app->getSession();
+        $session->set('gtm-data-layer-push', $dataLayerPushItems);
 
-      $this->assertEquals(
+        $this->assertEquals(
         $this->renderer->renderPhpFile(
           'src/widget/views/dataLayerPush.php',
           [
@@ -85,6 +86,11 @@ final class GTMTest extends TestCase
         ),
         GTM::widget(['type' => 'dataLayerPush'])
       );
+    }
+
+    public function testShouldReturnEmptyStringIfNoDataLayerPushItems()
+    {
+        $this->assertEquals('', GTM::widget(['type' => 'dataLayerPush']));
     }
 
     public function testShouldReturnEmptyStringIfIdParamNotSet()
@@ -106,5 +112,6 @@ final class GTMTest extends TestCase
         unset($this->widget);
         Yii::$app->params = [];
         Yii::getLogger()->messages = [];
+        Yii::$app->getSession()->session = [];
     }
 }
