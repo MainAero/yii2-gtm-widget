@@ -12,12 +12,13 @@ final class GTMTest extends TestCase
     protected $widget;
     protected $renderer;
 
-    public function testShouldReturnRenderedNoScriptSnippet() {
-      Yii::$app->params = [
+    public function testShouldReturnRenderedNoScriptSnippet()
+    {
+        Yii::$app->params = [
         'gtm_env' => '&gtm_auth=<TOKEN>w&gtm_preview=<ENV_ID>&gtm_cookies_win=x',
         'gtm_id' => '1A2B3CD'
       ];
-      $this->assertEquals(
+        $this->assertEquals(
           $this->renderer->renderPhpFile(
             'src/views/noscript.php',
             [
@@ -29,9 +30,10 @@ final class GTMTest extends TestCase
       );
     }
 
-    public function testTypeShouldBeDefaultScript(){
-      $this->widget::widget();
-      $this->assertEquals('script', $this->widget->type);
+    public function testTypeShouldBeDefaultScript()
+    {
+        $this->widget::widget();
+        $this->assertEquals('script', $this->widget->type);
     }
 
     public function testShouldReturnRenderedJavaScriptSnippet()
@@ -69,16 +71,10 @@ final class GTMTest extends TestCase
       );
     }
 
-    public function testShouldReturnEmptyStringIfIdParamNotSet() {
-      Yii::$app->params = ['gtm_env' => 'forgot to set gtm_id'];
-      $this->assertEquals('', $this->widget->run());
-    }
-
-    public function testShouldLogWarningIfIdParamNotSet() {
-      $this->widget->widget();
-      $log = reset(Yii::getLogger()->messages);
-      $this->assertEquals($log[0], 'Param "'. GTM::PARAM_ID . '" not set.');
-      $this->assertEquals($log[1], Logger::LEVEL_WARNING);
+    public function testShouldReturnEmptyStringIfIdParamNotSet()
+    {
+        Yii::$app->params = ['gtm_env' => 'forgot to set gtm_id'];
+        $this->assertEquals('', $this->widget->run());
     }
 
     protected function setUp()

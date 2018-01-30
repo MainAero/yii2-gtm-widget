@@ -17,8 +17,9 @@ class GTM extends Widget
     public function init()
     {
         parent::init();
-        if ($this->type != self::TYPE_SCRIPT && $this->type != self::TYPE_NOSCRIPT)
-          $this->type = self::TYPE_SCRIPT;
+        if ($this->type != self::TYPE_SCRIPT && $this->type != self::TYPE_NOSCRIPT) {
+            $this->type = self::TYPE_SCRIPT;
+        }
     }
 
     public function run()
@@ -32,11 +33,7 @@ class GTM extends Widget
 
     private function paramMissing(array $params) : bool
     {
-        if (empty($params[self::PARAM_ID])) {
-            Yii::warning('Param "' . self::PARAM_ID . '" not set.');
-            return true;
-        }
-        return false;
+        return empty($params[self::PARAM_ID]);
     }
 
     private function getParams() : array
